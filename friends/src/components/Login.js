@@ -1,6 +1,9 @@
 import React from 'react';
-import axios from 'axios'
-import { LoginForm } from './LoginForm';
+import { axiosWithAuth } from '../Utils/AxiosWithAuth';
+// import { LoginForm } from './LoginForm';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+
+
 
 
 
@@ -12,22 +15,56 @@ class Login extends React.Component {
         }
     }
 
-    componentDidMount() {
-        // console.log('testing')
-        axios
-            .get('http://localhost:5000/api.login')
+    handleChange = e => {
+        this.setState({
+            credentials: {
+                ...this.state.credentials,
+                [e.target.name]: e.target.value
+            }
+        })
     }
 
     login = e => {
         e.preventDefault();
+        axiosWithAuth()
+            .post('/api/login', this.state.credentials)
+            .then(res => {
+                localStorage.setItem('token', JSON.stringify(res.data.payload));
+                this.props.history.push('./protected')
+            })
+            .catch(err => console.log({ err }))
+    };
 
-    }
 
     render() {
         return (
             <div>
                 <h1> Friend Login</h1>
-                <LoginForm />
+
+                <Form onSubmit={this.login}>
+                    <FormGroup>
+                        <Label for="userName">User Name</Label>
+                        <Input type="text"
+                            name="username"
+                            id="name"
+                            placeholder="Enter Username Here"
+                            value={this.state.username}
+                            onChange={this.handleChange} />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="examplePassword">Password</Label>
+                        <Input type="password"
+                            name="password"
+                            id="examplePassword"
+                            placeholder="Enter password here"
+                            value={this.state.password}
+                            onChange={this.handleChange} />
+                    </FormGroup>
+                    <Button>Submit</Button> <br />
+
+                </Form>
+
+                {/* <LoginForm state={this.state.credentials} /> */}
             </div>
         )
     }
