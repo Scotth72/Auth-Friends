@@ -2,6 +2,7 @@ import React from 'react';
 import { axiosWithAuth } from '../Utils/AxiosWithAuth';
 // import { LoginForm } from './LoginForm';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
@@ -62,9 +63,9 @@ class Login extends React.Component {
                     </FormGroup>
                     <Button>Submit</Button> <br />
 
+
                 </Form>
 
-                {/* <LoginForm state={this.state.credentials} /> */}
             </div>
         )
     }

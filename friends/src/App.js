@@ -5,6 +5,7 @@ import Login from './components/Login';
 import FriendCard from './components/FriendsList';
 // import NavBar from './components/NavBar';
 import PrivateRoute from './ProtectedRoute'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
@@ -18,13 +19,12 @@ function App() {
         <ul>
           <Link to="/protected">Protected Page</Link>
         </ul>
+        <Switch>
+          <PrivateRoute exact path="/protected" component={FriendCard} />
+          <Route path="/Login" component={Login} />
+          <Route component={Login} />
+        </Switch>
       </div>
-      <Switch>
-        <PrivateRoute exact path='/protected' component={FriendCard} />
-        <Route exact path="/protected" component={FriendCard} />
-        <Route path="/Login" component={Login} />
-        <Route component={Login} />
-      </Switch>
     </Router>
   );
 }
