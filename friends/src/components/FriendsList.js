@@ -44,7 +44,9 @@ class FriendCard extends React.Component {
     onSubmit = e => {
         axiosWithAuth()
             .post('/api/friends', this.state.newFriend)
-            .then(res => console.log('POST new Friend', res))
+            .then(res => {
+                return this.setState({ friends: res.data })
+            })
             .catch(err => console.log({ err }))
     }
 
@@ -54,7 +56,7 @@ class FriendCard extends React.Component {
             <div>
                 {this.state.friends.map(friend => {
                     return (<Card key={friend.id}>
-                        <CardBody>
+                        <CardBody className="friendCard">
                             <CardTitle>Friends: {friend.name}</CardTitle>
                             <CardSubtitle>Age:{friend.age}</CardSubtitle>
                             <CardSubtitle>Email:{friend.email}</CardSubtitle>
@@ -63,7 +65,7 @@ class FriendCard extends React.Component {
                     </Card>
                     )
                 })}
-                < Card onSubmit={this.onSubmit}>
+                < Card className="friendCard" onSubmit={this.onSubmit}>
                     <CardTitle type="name">Name</CardTitle>
                     <input htmlFor="name"
                         name="name"

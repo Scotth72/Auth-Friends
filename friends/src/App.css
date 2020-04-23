@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  width: 100%;
+  max-width: 330px;
+  margin: auto;
 }
 
 .App-logo {
@@ -38,4 +41,12 @@
   
   
 
+}
+
+.friendCard {
+   text-align: center;
+  width: 100%;
+  max-width: 330px;
+  margin: auto;
+  padding: 15px;
 }
